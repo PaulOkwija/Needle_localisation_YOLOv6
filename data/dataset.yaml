@@ -1,6 +1,6 @@
 # Please insure that your custom_dataset are put in same parent dir with YOLOv6_DIR
 train: /content/data/images/train # train 1302 images
-val: /content/data/images/val  #  validation 210 images
+val: /content/data/images/validation  #  validation 210 images
 test: /content/data/images/test  # test images
 
 # whether it is coco dataset, only coco dataset should be set to True.
