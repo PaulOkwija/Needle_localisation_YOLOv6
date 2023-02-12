@@ -33,6 +33,9 @@ from yolov6.utils.RepOptimizer import extract_scales, RepVGGOptimizer
 from yolov6.utils.nms import xywh2xyxy
 from yolov6.utils.general import download_ckpt
 
+import wandb
+# import random
+
 
 class Trainer:
     def __init__(self, args, cfg, device):
@@ -103,6 +106,17 @@ class Trainer:
 
     # Training Process
     def train(self):
+        wandb.login()
+        wandb.init(
+                    # set the wandb project where this run will be logged
+                    project="yolov6",
+                    
+                    # track hyperparameters and run metadata
+                    config={
+                    "batch_size": self.batch_size,
+                    "epochs": self.max_epoch,
+                    }
+                )
         try:
             self.train_before_loop()
             for self.epoch in range(self.start_epoch, self.max_epoch):
@@ -114,6 +128,7 @@ class Trainer:
             raise
         finally:
             self.train_after_loop()
+            wandb.finish()
 
     # Training loop for each epoch
     def train_in_loop(self, epoch_num):
@@ -244,6 +259,7 @@ class Trainer:
                             )
 
         LOGGER.info(f"Epoch: {self.epoch} | mAP@0.5: {results[0]} | mAP@0.50:0.95: {results[1]}")
+        wandb.log({"mAP@0.5: ": results[0], "mAP@0.50:0.95: ": results[1], "loss": self.epoch})
         self.evaluate_results = results[:2]
         # plot validation predictions
         self.plot_val_pred(vis_outputs, vis_paths)
