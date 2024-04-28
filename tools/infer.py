@@ -25,7 +25,7 @@ def get_args_parser(add_help=True):
     parser.add_argument('--img-size', nargs='+', type=int, default=[640, 640], help='the image-size(h,w) in inference size.')
     parser.add_argument('--conf-thres', type=float, default=0.4, help='confidence threshold for inference.')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold for inference.')
-    parser.add_argument('--max-det', type=int, default=1000, help='maximal inferences per image.')
+    parser.add_argument('--max-det', type=int, default=3, help='maximal inferences per image.')
     parser.add_argument('--device', default='0', help='device to run our model i.e. 0 or 0,1,2,3 or cpu.')
     parser.add_argument('--save-txt', action='store_true', help='save results to *.txt.')
     parser.add_argument('--not-save-img', action='store_true', help='do not save visuallized inference results.')
